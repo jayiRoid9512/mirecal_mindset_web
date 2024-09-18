@@ -1,0 +1,105 @@
+.next-btn,
+.upload-controls,
+.recording-controls button,
+.img-upload-btn {
+    background-color: white;
+    color: black;
+    padding: 7px 20px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.previous-btn {
+    background-color: rgb(29, 23, 44);
+    color: rgb(255, 255, 255);
+    padding: 7px 20px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.upload-controls {
+    width: fit-content;
+}
+
+.question-wrapper textarea:focus {
+    outline: none;
+}
+
+.question-wrapper textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 11px;
+    resize: none;
+    color: white;
+    padding: 10px 20px;
+}
+
+.box-wrapper {
+    background-color: rgba(29, 23, 44, 0.3);
+    border-radius: 10px;
+    border: 2px solid transparent;
+}
+
+.box-wrapper.selected,
+.recording-item.selected {
+    border: 2px solid rgb(140, 140, 140);
+    background-color: rgba(29, 23, 44, 0.6);
+}
+
+.preference-select-wrapper {
+    border: 1px solid white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.recording-item {
+    display: flex;
+    padding: 10px;
+    background-color: rgba(29, 23, 44, 0.3);
+    border-radius: 15px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    /* width: fit-content; */
+}
+
+.recording-controls-wrapper {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.tb-img-view img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.mantra-title-input {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: white;
+}
+
+.time-picker {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+    width: fit-content;
+}
+
+.time-picker:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.4);
+}
