@@ -203,6 +203,9 @@ const Login = () => {
                         <button className="btn btn-lg btn-white btn-block" type="submit">
                             Login
                         </button>
+                        <Link className="forgot-password text-center text-decoration-none text-white my-3" to="/signup">
+                            Don't have an account? SignUp
+                        </Link>
                     </form>
                 </div>
             )}

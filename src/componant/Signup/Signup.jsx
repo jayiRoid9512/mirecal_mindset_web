@@ -238,7 +238,7 @@ const Signup = () => {
                         />
                         <img src={message} alt="" />
                     </div>
-                    <div className="inner-addon mb-5">
+                    <div className="inner-addon mb-3">
                         <input
                             type="password"
                             className="form-control"
@@ -252,8 +252,11 @@ const Signup = () => {
                         Resend OTP
                     </Link>
                     <button className="btn btn-lg btn-white btn-block" type="submit">
-                        Login
+                        SignUp
                     </button>
+                    <Link className="forgot-password text-center text-decoration-none text-white my-3" to="/">
+                        Already have an account? Login
+                    </Link>
                 </form>
             </div>
 
