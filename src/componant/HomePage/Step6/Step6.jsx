@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import TimePicker from 'react-time-picker';
 
-const Step6 = ({ onPrev, onComplete }) => {
+const Step6 = ({ onPrev, onComplete, handlePostData }) => {
   const [time, setTime] = useState(() => {
     const now = new Date();
     return now.toLocaleTimeString('en-IN', { hour12: false, hour: '2-digit', minute: '2-digit' });
@@ -13,6 +13,7 @@ const Step6 = ({ onPrev, onComplete }) => {
 
   const handleDone = () => {
     onComplete(time);
+    handlePostData();
   };
 
   return (

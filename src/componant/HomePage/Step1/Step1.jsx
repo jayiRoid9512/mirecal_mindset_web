@@ -19,8 +19,7 @@ const Step1 = ({ onNext }) => {
 
             const response = await apiInstance.post('user-step/step-1', formattedData, {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
 
@@ -28,7 +27,6 @@ const Step1 = ({ onNext }) => {
                 console.log(response.data);
                 console.log(response.data.data._id);
                 toast.success(response.data.message);
-                // onNext();
                 onNext(response.data.data._id);
             }
         } catch (error) {

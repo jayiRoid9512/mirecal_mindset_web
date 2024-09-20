@@ -8,6 +8,7 @@ import Signup from './componant/Signup/Signup';
 import ChangePassword from './componant/ChangePassword/ChangePassword';
 import PublicRoutes from './Routes/PublicRoute';
 import PrivateRoutes from './Routes/PrivateRoute';
+import MatrasFile from './componant/MatrasFile/MatrasFile';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           </Route>
           <Route element={<PrivateRoutes />}>
             <Route path="home" element={<HomePage />} />
+            <Route path="your-matras" element={<MatrasFile />} />
             <Route path="change-language" element={<Language />} />
           </Route>
         </Routes>

@@ -32,7 +32,7 @@ const Header = () => {
             </div>
             <div className='d-flex justify-content-end py-3 px-4 align-items-center'>
                 <Link to="/change-language" className='header-language text-decoration-none text-white me-2'>Change Language</Link>
-                <Link to="#" className="header-profile">
+                <Link to="/home" className="header-profile">
                     <img src={profile} alt="" />
                 </Link>
             </div>

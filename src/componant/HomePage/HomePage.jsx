@@ -10,6 +10,7 @@ import './homepage.css'
 import { apiInstance } from '../../API/apiBaseURL'
 import { toast } from 'sonner'
 import Loader from '../Loader/Loader'
+import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
   const [currentStep, setCurrentStep] = useState(1)
@@ -23,6 +24,7 @@ const HomePage = () => {
   const [mantraTitle, setMantraTitle] = useState('');
   const [step1Data, setStep1Data] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
 
   const nextStep = (data) => {
     if (currentStep === 1 && data) {
@@ -46,8 +48,6 @@ const HomePage = () => {
 
   const handleComplete = (time) => {
     setReminderTime(time);
-    // You can add any additional logic here, such as submitting the data to a server
-    console.log("All steps completed. Reminder time:", time);
   };
 
   const handleMantraTitleChange = (title) => {
@@ -73,103 +73,55 @@ const HomePage = () => {
           onMantraTitleChange={handleMantraTitleChange}
         />
       case 6:
-        return <Step6 onPrev={prevStep} onComplete={handleComplete} />
+        return <Step6 onPrev={prevStep} onComplete={handleComplete} handlePostData={handlePostData} />
       default:
         return <Step1 onNext={nextStep} />
     }
   }
 
-  // const handlePostData = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const data = {
-  //       mantraName: mantraTitle,
-  //       step1Id: step1Data,
-  //       categoryId: selectedCategoryId,
-  //       YourselfVoiceStatus: "false",
-  //       // voiceFile: audioData,
-  //       preferenceVoiceId: recordingId,
-  //       backgroundVoiceId: backgroundMusicId,
-  //       mantraImage: uploadedImage,
-  //       notificationTimestamp: reminderTime || "9:41 AM"
-  //     }
-  //     await apiInstance.post('user-step/notification-reminder', data, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${localStorage.getItem('token')}`
-  //       }
-  //     }).then((res) => {
-  //       console.log(res.data);
-  //       toast.success(res.data.message);
-  //     })
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error(error.response.data.message || "An error occurred. Please try again.");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
-
   const handlePostData = async () => {
     setIsLoading(true);
     try {
-      const data = {
-        mantraName: mantraTitle,
-        step1Id: step1Data,
-        categoryId: selectedCategoryId,
-        YourselfVoiceStatus: "false",
-        preferenceVoiceId: recordingId,
-        backgroundVoiceId: backgroundMusicId,
-        mantraImage: uploadedImage,  // Base64 encoded image
-        notificationTimestamp: reminderTime || "9:41 AM"
-      };
+      const formData = new FormData();
 
-      console.log("Payload being sent:", data);
+      formData.append('mantraName', mantraTitle);
+      formData.append('step1Id', step1Data);
+      formData.append('categoryId', selectedCategoryId);
+      formData.append('YourselfVoiceStatus', "false");
+      formData.append('preferenceVoiceId', recordingId);
+      formData.append('backgroundVoiceId', backgroundMusicId);
+      formData.append('notificationTimestamp', reminderTime || "9:41 AM");
 
-      const response = await apiInstance.post('user-step/notification-reminder', data, {
+      if (uploadedImage instanceof File) {
+        formData.append('mantraImage', uploadedImage);
+      } else if (typeof uploadedImage === 'string') {
+        const response = await fetch(uploadedImage);
+        const blob = await response.blob();
+        formData.append('mantraImage', blob, 'image.jpg');
+      }
+
+      await apiInstance.post('user-step/notification-reminder', formData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
-      });
-
-      if (response && response.data) {
-        console.log(response.data);
-        toast.success(response.data.message);
-      } else {
-        throw new Error("Unexpected response structure");
-      }
-
+      }).then((res) => {
+        console.log(res.data);
+        toast.success(res.data.message);
+        navigate('/your-matras')
+      })
     } catch (error) {
       console.error("Error during API request:", error);
-
-      if (error.response) {
-        console.error("Server response data:", error.response.data);  // Log full error response data
-        const errorMessage = error.response.data?.message || "An error occurred. Please try again.";
-        toast.error(errorMessage);
-      } else {
-        toast.error("Network error. Please check your connection.");
-      }
+      const errorMessage = error.response?.data?.message || "An error occurred. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="container">
-      <Header />
+    <div>
       {isLoading ? <Loader /> : renderStep()}
-      {mantraTitle && <p className='text-white font-bold mt-4'>Mantra Title: {mantraTitle}</p>}
-      {step1Data && <p className='text-white font-bold'>step1Id set for: {step1Data}</p>}
-      {selectedCategoryId && <p className='text-white font-bold'>categoryId set for: {selectedCategoryId}</p>}
-      {recordingId && <p className='text-white font-bold'>preferenceVoiceId set for: {recordingId}</p>}
-      {backgroundMusicId && <p className='text-white font-bold'>backgroundVoiceId set for: {backgroundMusicId}</p>}
-      {uploadedImage && <p className='text-white font-bold'>imgURL set for: {uploadedImage}</p>}
-      {uploadedImage && <p className='text-white font-bold'>mantraImage set for: <img src={uploadedImage} height={50} width={50} alt="" /></p>}
-      {reminderTime && <p className='text-white font-bold'>notificationTimestamp set for: {reminderTime}</p>}
-      {currentStep === 6 && (
-        <button onClick={handlePostData} className="submit-btn">Submit All Data</button>
-      )}
     </div>
   )
 }
