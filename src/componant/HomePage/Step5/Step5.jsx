@@ -12,7 +12,6 @@ const Step5 = ({ onNext, onPrev, uploadedImage, onImageUpload, onMantraTitleChan
 
   const fileUpload = (event) => {
     const files = event.target.files;
-    console.log(files)
     if (files.length > 0) {
       const newImageSrc = URL.createObjectURL(files[0]);
       setImageSrc(newImageSrc);
@@ -25,8 +24,6 @@ const Step5 = ({ onNext, onPrev, uploadedImage, onImageUpload, onMantraTitleChan
     setMantraTitle(newTitle);
     onMantraTitleChange(newTitle);
   };
-
-  console.log(imageSrc)
 
   return (
     <div className='step-container text-white'>

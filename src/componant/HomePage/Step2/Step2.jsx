@@ -12,7 +12,6 @@ const Step2 = ({ onNext, onPrev, onCategorySelect }) => {
       await apiInstance.get(`user-step/category`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       }).then((res) => {
-        console.log(res.data);
         setCategory(res.data.data);
         toast.success(res.data.message);
       })
@@ -26,7 +25,6 @@ const Step2 = ({ onNext, onPrev, onCategorySelect }) => {
 
   const handleCategorySelect = (categoryId) => {
     setSelectedCategory(categoryId === selectedCategory ? null : categoryId);
-    console.log(categoryId);
     onCategorySelect(categoryId);
   };
 

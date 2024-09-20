@@ -106,7 +106,6 @@ const HomePage = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       }).then((res) => {
-        console.log(res.data);
         toast.success(res.data.message);
         navigate('/your-matras')
       })

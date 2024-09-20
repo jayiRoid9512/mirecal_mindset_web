@@ -12,24 +12,22 @@ const Language = () => {
         setLanguage(selectedLanguage);
 
         try {
-            const response = await apiInstance.post(`users/language`, {
+            await apiInstance.post(`users/language`, {
                 language: selectedLanguage
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 }
-            });
-            console.log(response)
-            console.log(response.data.message)
-            if (response.data && response.data.language) {
-                setLanguage(response.data.language);
-            }
-            toast.success(response.data.message);
+            }).then((res) => {
+                if (res.data && res.data.language) {
+                    setLanguage(res.data.language);
+                    toast.success(res.data.message);
+                }
+            })
         } catch (error) {
             console.error("Error changing language:", error);
         }
     }
-    console.log(language)
 
     return (
         <div className='d-flex justify-content-center align-items-center' style={{ height: '100vh' }}>

@@ -1,0 +1,12 @@
+.modal-content {
+    /* background: linear-gradient(193deg, rgba(40, 40, 120, 1) 0%, rgba(117, 3, 132, 1) 100%) !important; */
+    background: linear-gradient(193deg, rgba(57, 57, 148, 1) 0%, rgba(25, 11, 40, 1) 50%, rgba(143, 22, 166, 1) 100%) !important;
+    border-radius: 20px !important;
+}
+
+.btn-close {
+    background-color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}

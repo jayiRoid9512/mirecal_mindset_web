@@ -16,7 +16,6 @@ const Step4 = ({ onNext, onPrev, onBackgroundMusicSelect }) => {
         }
       });
       toast.success(response.data.message);
-      console.log(response.data);
       // Ensure we're setting an array
       setSelectedBackgroundMusic(Array.isArray(response.data.data) ? response.data.data : []);
     } catch (error) {
@@ -33,7 +32,6 @@ const Step4 = ({ onNext, onPrev, onBackgroundMusicSelect }) => {
   }, []);
 
   const handleRecordingSelect = (id) => {
-    console.log(id);
     setSelectedBackgroundMusicId(id === selectedBackgroundMusicId ? null : id);
     onBackgroundMusicSelect(id);
   }

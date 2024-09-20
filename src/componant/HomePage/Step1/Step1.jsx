@@ -24,8 +24,6 @@ const Step1 = ({ onNext }) => {
             });
 
             if (response.status === 200) {
-                console.log(response.data);
-                console.log(response.data.data._id);
                 toast.success(response.data.message);
                 onNext(response.data.data._id);
             }

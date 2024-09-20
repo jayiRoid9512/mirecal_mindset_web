@@ -110,10 +110,8 @@ const Signup = () => {
                     'Accept': 'application/json',
                 }
             })
-            console.log(response)
             if (response.status === 200) {
                 toast.success("Email Register Successfully!!", response.data.message);
-                // navigate("/");
                 Swal.fire({
                     title: "Enter OTP",
                     text: "Please enter the 4-digit OTP sent to your email",
@@ -172,7 +170,7 @@ const Signup = () => {
             }
         } catch (error) {
             toast.error("Error: Invalid response format", error);
-            console.log(error)
+            console.error(error)
         }
     }
 
@@ -191,13 +189,12 @@ const Signup = () => {
                 }
             });
 
-            console.log(response);
             if (response.status !== 200) {
                 throw new Error('OTP verification failed');
             }
             return response.data;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             throw error;
         }
     }

@@ -4,7 +4,7 @@ import { useAuth } from "../Auth/Auth";
 function PublicRoutes() {
     const token = useAuth();
     return token ? (
-        <Navigate to="/home" />
+        <Navigate to="/your-matras" />
     ) : (
         <>
             <Outlet />

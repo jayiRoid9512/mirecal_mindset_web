@@ -30,14 +30,11 @@ const Step3 = ({ onNext, onPrev, onSelectRecording, onAudioChange }) => {
         }
     };
 
-    // console.log(audioFile)
-
     const fetchRecording = async () => {
         try {
             await apiInstance.get('user-step/voice', {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             }).then((res) => {
-                console.log(res.data);
                 setRecording(res.data.data);
             })
         } catch (error) {
@@ -61,7 +58,6 @@ const Step3 = ({ onNext, onPrev, onSelectRecording, onAudioChange }) => {
         setSelectedRecording(id === selectedRecording ? null : id);
         onSelectRecording(id);
         setIsVoiceSelected(!!id);
-        console.log(id);
     }
 
     const startRecording = async () => {

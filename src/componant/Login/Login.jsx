@@ -38,7 +38,7 @@ const Login = () => {
             })
         } catch (error) {
             toast.error("Error: Invalid response format", error);
-            console.log(error)
+            console.error(error)
         } finally {
             setIsLoading(false)
         }
@@ -95,7 +95,7 @@ const Login = () => {
                     }).then(async (result) => {
                         if (result.isConfirmed) {
                             const otp = Array.from(document.querySelectorAll('.otp-input')).map(input => input.value).join('');
-                            console.log(otp)
+
                             try {
                                 await handleOTP({ otp, email: emailValue, type: 2 });
                                 Swal.fire({
@@ -120,7 +120,7 @@ const Login = () => {
             })
         } catch (error) {
             toast.error(error.data.message);
-            console.log(error)
+            console.error(error)
         } finally {
             setIsLoading(false)
         }

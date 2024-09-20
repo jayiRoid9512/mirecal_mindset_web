@@ -2,3 +2,6 @@ body {
     background: linear-gradient(193deg, rgba(40, 40, 120, 1) 0%, rgba(117, 3, 132, 1) 100%) !important;
     min-height: 100vh;
 }
+.delete-btn{
+    z-index: 9999999 !important;
+}
