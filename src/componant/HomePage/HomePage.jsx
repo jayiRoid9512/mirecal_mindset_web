@@ -87,8 +87,26 @@ const HomePage = () => {
       formData.append('mantraName', mantraTitle);
       formData.append('step1Id', step1Data);
       formData.append('categoryId', selectedCategoryId);
-      formData.append('YourselfVoiceStatus', "false");
-      formData.append('preferenceVoiceId', recordingId);
+
+      // formData.append('YourselfVoiceStatus', audioType === 'uploaded' ? "true" : "false");
+      // if (audioType === 'uploaded') {
+      //   const audioBlob = audioData instanceof Blob ? audioData : new Blob([audioData], { type: 'audio/wav' });
+      //   formData.append('voiceFile', audioBlob, 'voice.wav');
+      // } else {
+      //   formData.append('preferenceVoiceId', recordingId);
+      // }
+
+      if (audioData) {
+        formData.append('YourselfVoiceStatus', 'true');
+        const audioBlob = audioData instanceof Blob ? audioData : new Blob([audioData], { type: 'audio/wav' });
+        formData.append('voiceFile', audioBlob, 'voice.wav');
+      } else if (recordingId) {
+        formData.append('YourselfVoiceStatus', 'false');
+        formData.append('preferenceVoiceId', recordingId);
+      } else {
+        throw new Error('No voice input provided');
+      }
+      
       formData.append('backgroundVoiceId', backgroundMusicId);
       formData.append('notificationTimestamp', reminderTime || "9:41 AM");
 

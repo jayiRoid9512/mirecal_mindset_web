@@ -4,6 +4,7 @@ import Loader from '../Loader/Loader'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import MantraModal from '../MantraModal/MantraModal'
+import Swal from 'sweetalert2'
 
 const MatrasFile = () => {
 
@@ -33,6 +34,22 @@ const MatrasFile = () => {
     useEffect(() => {
         fetchMatras()
     }, [])
+
+    const confirmDeleteMantra = (mantraId) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't delete this mantra",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleDeleteMantra(mantraId)
+            }
+        })
+    }
 
     const handleDeleteMantra = async (mantraId) => {
         try {
@@ -76,7 +93,8 @@ const MatrasFile = () => {
                         </div>
                         <div className="d-flex">
                             {/* <audio src={mantra.aiVoiceFile} controls></audio> */}
-                            <button className='btn btn-danger delete-btn' onClick={() => handleDeleteMantra(mantra._id)}>Delete</button>
+                            {/* <button className='btn btn-danger delete-btn' onClick={() => handleDeleteMantra(mantra._id)}>Delete</button> */}
+                            <button className='btn btn-danger delete-btn' onClick={(e) => { e.stopPropagation(); confirmDeleteMantra(mantra._id); }}>Delete</button>
                         </div>
                     </div>
                 ))

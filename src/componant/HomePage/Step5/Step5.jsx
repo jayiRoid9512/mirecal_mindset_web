@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 const Step5 = ({ onNext, onPrev, uploadedImage, onImageUpload, onMantraTitleChange }) => {
   const [imageSrc, setImageSrc] = useState('');
   const [mantraTitle, setMantraTitle] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (uploadedImage) {
@@ -23,6 +24,18 @@ const Step5 = ({ onNext, onPrev, uploadedImage, onImageUpload, onMantraTitleChan
     const newTitle = event.target.value;
     setMantraTitle(newTitle);
     onMantraTitleChange(newTitle);
+    setError('');
+  };
+
+  const handleNext = () => {
+    if (!imageSrc) {
+      setError('Please upload an image before proceeding.');
+    } else if (!mantraTitle.trim()) {
+      setError('Please add a title before proceeding.');
+    } else {
+      setError('');
+      onNext();
+    }
   };
 
   return (
@@ -49,9 +62,11 @@ const Step5 = ({ onNext, onPrev, uploadedImage, onImageUpload, onMantraTitleChan
         />
       </div>
 
+      {error && <div className="error-message text-red-500 mt-2">{error}</div>}
+
       <div className="mt-5">
         <button onClick={onPrev} className='previous-btn me-4'>Back</button>
-        <button onClick={onNext} className='next-btn'>Next</button>
+        <button onClick={handleNext} className='next-btn'>Next</button>
       </div>
     </div>
   )

@@ -9,7 +9,6 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { apiInstance } from '../../API/apiBaseURL'
 import Swal from 'sweetalert2'
-import { type } from '@testing-library/user-event/dist/type'
 import Loader from '../Loader/Loader'
 
 const Login = () => {
@@ -31,13 +30,13 @@ const Login = () => {
                     const token = res.data.data.auth.accessToken;
                     localStorage.setItem("token", token);
                     toast.success("Login Successfully!!", res.data.message);
-                    navigate("home");
+                    navigate("your-matras");
                 } else {
                     toast.error();
                 }
             })
         } catch (error) {
-            toast.error("Error: Invalid response format", error);
+            toast.error(error.response.data.message);
             console.error(error)
         } finally {
             setIsLoading(false)
@@ -184,6 +183,8 @@ const Login = () => {
                                 name="email"
                                 {...register('email', { required: 'Email is required' })}
                                 placeholder="Email Address"
+                                autoComplete='off'
+                                autoFocus
                             />
                             <img src={message} alt="" />
                         </div>
@@ -194,6 +195,8 @@ const Login = () => {
                                 name="password"
                                 {...register('password', { required: 'Password is required' })}
                                 placeholder="Password"
+                                autoComplete='off'
+                                autoFocus
                             />
                             <img src={lock} alt="" />
                         </div>

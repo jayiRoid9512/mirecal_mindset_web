@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { apiInstance } from '../../../API/apiBaseURL';
-// import './RecordingStep.css';
 
 const Step3 = ({ onNext, onPrev, onSelectRecording, onAudioChange }) => {
     const [isRecording, setIsRecording] = useState(false);
@@ -11,8 +10,6 @@ const Step3 = ({ onNext, onPrev, onSelectRecording, onAudioChange }) => {
     const [Recording, setRecording] = useState([]);
     const [selectedRecording, setSelectedRecording] = useState([]);
 
-    // const [audioFile, setAudioFile] = useState(null);
-
     const [recordedAudioURL, setRecordedAudioURL] = useState('');
     const [uploadedAudioURL, setUploadedAudioURL] = useState('');
 
@@ -21,14 +18,16 @@ const Step3 = ({ onNext, onPrev, onSelectRecording, onAudioChange }) => {
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
-            // setAudioFile(file);
             const audioUrl = URL.createObjectURL(file);
             setUploadedAudioURL(audioUrl);
             setRecordedAudioURL('');
-            onAudioChange(file, 'uploaded'); // Pass the file and type to parent
+            onAudioChange(file, 'uploaded');
             setIsVoiceSelected(true);
         }
     };
+
+    console.log(uploadedAudioURL)
+    console.log(recordedAudioURL)
 
     const fetchRecording = async () => {
         try {
@@ -41,10 +40,6 @@ const Step3 = ({ onNext, onPrev, onSelectRecording, onAudioChange }) => {
             console.error('Error fetching recordings:', error);
         }
     }
-
-    // useEffect(() => {
-    //     fetchRecording();
-    // }, [])
 
     const handlePreferenceChange = (e) => {
         const newPreference = e.target.value;
