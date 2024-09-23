@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/appLogo.svg'
 import lock from '../../assets/images/Lock.svg'
+import Hide from '../../assets/images/Hide.svg'
+import Show from '../../assets/images/Show.svg'
 import message from '../../assets/images/Message.svg'
 import './login.css'
 import { useForm } from 'react-hook-form'
@@ -16,6 +18,11 @@ const Login = () => {
     const { register, handleSubmit, watch } = useForm();
     const emailValue = watch("email");
     const [isLoading, setIsLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const onSubmit = async (data) => {
         setIsLoading(true)
@@ -190,7 +197,7 @@ const Login = () => {
                         </div>
                         <div className="inner-addon mb-3">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 className="form-control"
                                 name="password"
                                 {...register('password', { required: 'Password is required' })}
@@ -199,6 +206,9 @@ const Login = () => {
                                 autoFocus
                             />
                             <img src={lock} alt="" />
+                            <div className="eye-icons" onClick={togglePasswordVisibility}>
+                                <img src={showPassword ? Hide : Show} alt="" />
+                            </div>
                         </div>
                         <Link className="forgot-password text-end text-decoration-none text-white" to="#" onClick={handleForgotPassword}>
                             Forgot Password?

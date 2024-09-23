@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/appLogo.svg'
 import lock from '../../assets/images/Lock.svg'
 import profile from '../../assets/images/Profile.svg'
+import Hide from '../../assets/images/Hide.svg'
+import Show from '../../assets/images/Show.svg'
 import message from '../../assets/images/Message.svg'
 import Swal from 'sweetalert2'
 import { useForm } from 'react-hook-form'
@@ -15,11 +17,15 @@ const Signup = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, watch } = useForm();
     const emailValue = watch("email");
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const handleResendOTP = async (data) => {
 
         try {
-            // const type = localStorage.getItem('signupType') || '1';
             const response = await apiInstance.post('auth/resend-otp', {
                 email: emailValue,
                 type: 1
@@ -240,13 +246,16 @@ const Signup = () => {
                     </div>
                     <div className="inner-addon mb-3">
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             className="form-control"
                             name="password"
                             {...register('password', { required: 'Password is required' })}
                             placeholder="Password"
                         />
                         <img src={lock} alt="" />
+                        <div className="eye-icons" onClick={togglePasswordVisibility}>
+                            <img src={showPassword ? Hide : Show} alt="" />
+                        </div>
                     </div>
                     <Link className="forgot-password text-end text-decoration-none text-white" to="#" onClick={handleResendOTP}>
                         Resend OTP
